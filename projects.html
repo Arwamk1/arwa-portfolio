@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Arwa Zenni | AI Developer</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/templatemo-liberty-market.css">
+    <link rel="stylesheet" href="assets/css/shared-styles.css">
+    
+    <style>
+        /* Page-specific styles */
+        .projects-section {
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-card) 100%);
+        }
+        
+        .project-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .project-tab {
+            background: var(--bg-card);
+            color: var(--color-text-secondary);
+            border: 1px solid var(--color-border-light);
+            padding: 12px 24px;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .project-tab.active,
+        .project-tab:hover {
+            background: var(--gradient-primary);
+            color: var(--color-text-inverse);
+            border-color: var(--color-primary);
+            transform: translateY(-2px);
+        }
+        
+        .project-card {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--color-border-light);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 30px;
+            backdrop-filter: var(--backdrop-blur);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--color-border-hover);
+        }
+        
+        .project-image {
+            position: relative;
+            overflow: hidden;
+            height: 250px;
+        }
+        
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .project-card:hover .project-image img {
+            transform: scale(1.1);
+        }
+        
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(108, 92, 231, 0.9), rgba(253, 121, 168, 0.9));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+        
+        .project-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .project-link {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .project-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        .project-content {
+            padding: 25px;
+        }
+        
+        .project-category {
+            color: var(--color-primary);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        
+        .project-title {
+            color: var(--color-text);
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+        
+        .project-description {
+            color: var(--color-text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .tech-tag {
+            background: var(--bg-secondary);
+            color: var(--color-text);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            border: 1px solid var(--color-border-light);
+        }
+        
+        .project-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid var(--color-border-light);
+        }
+        
+        .project-date {
+            color: var(--color-text-muted);
+            font-size: 12px;
+        }
+        
+        .project-status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .status-completed {
+            background: rgba(0, 184, 148, 0.2);
+            color: var(--color-success);
+            border: 1px solid var(--color-success);
+        }
+        
+        .status-ongoing {
+            background: rgba(253, 203, 110, 0.2);
+            color: var(--color-warning);
+            border: 1px solid var(--color-warning);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .project-tabs {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+            
+            .project-tab {
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="modern-header">
+        <nav class="modern-nav">
+            <a href="index.html" class="nav-brand">
+                <div class="brand-icon">AZ</div>
+                <span>Arwa Zenni</span>
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="skills.html" class="nav-link">Skills</a></li>
+                <li><a href="projects.html" class="nav-link active">Projects</a></li>
+                <li><a href="experience.html" class="nav-link">Experience</a></li>
+                <li><a href="education.html" class="nav-link">Education</a></li>
+                <li><a href="achievements.html" class="nav-link">Achievements</a></li>
+                <!-- <li><a href="contact.html" class="nav-link">Contact</a></li> -->
+            </ul>
+            
+            <button class="mobile-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+        
+        <div class="mobile-nav">
+            <ul class="mobile-menu">
+                <li><a href="index.html" class="mobile-link">Home</a></li>
+                <li><a href="about.html" class="mobile-link">About</a></li>
+                <li><a href="skills.html" class="mobile-link">Skills</a></li>
+                <li><a href="projects.html" class="mobile-link active">Projects</a></li>
+                <li><a href="experience.html" class="mobile-link">Experience</a></li>
+                <li><a href="education.html" class="mobile-link">Education</a></li>
+                <li><a href="achievements.html" class="mobile-link">Achievements</a></li>
+                <!-- <li><a href="contact.html" class="mobile-link">Contact</a></li> -->
+            </ul>
+        </div>
+    </header>
+
+    <!-- Projects Section -->
+    <section class="projects-section" id="projects">
+        <div class="container">
+            <div class="section-heading">
+                <div class="line-dec"></div>
+                <h2>My <em>Projects</em></h2>
+            </div>
+            
+            <!-- Project Tabs -->
+            <div class="project-tabs">
+                <div class="project-tab active" data-tab="all">All Projects</div>
+                <div class="project-tab" data-tab="ai-ml">AI & ML</div>
+                <div class="project-tab" data-tab="web-dev">Web Development</div>
+                <div class="project-tab" data-tab="data-science">Data Science</div>
+                <div class="project-tab" data-tab="mobile">Mobile Apps</div>
+            </div>
+            
+            <!-- All Projects -->
+            <div class="tab-content active" id="all">
+                <div class="row">
+                    <!-- Project 1 - Athar  -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/images/project-01.jpg" alt="Athar AI App">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Demo">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Code">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <div class="project-category">AI & ML • Mobile</div>
+                                <h3 class="project-title">Athar – AI Tourism App</h3>
+                                <p class="project-description">
+                                    AI-powered solution to enhance the Saudi tourism experience by analyzing visitor feedback,
+                                    identifying tourism pain points, and suggesting data-driven improvements.
+                                </p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Flutter</span>
+                                    <span class="tech-tag">Firebase</span>
+                                    <span class="tech-tag">YOLO - Object Detection</span>
+                                    <span class="tech-tag">LLM APIs</span>
+                                </div>
+                                <div class="project-stats">
+                                    <span class="project-date">Jul 2024</span>
+                                    <span class="project-status status-completed">Hackathon Winner</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 2 - SmartCloset -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/images/project-02.jpg" alt="SmartCloset - AI Wardrobe Recommender">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Demo">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Code">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <div class="project-category">AI & ML • Mobile</div>
+                                <h3 class="project-title">SmartCloset – AI Wardrobe Recommender</h3>
+                                <p class="project-description">
+                                    Computer vision–based system that analyzes clothing items and recommends outfits based on extracted features.
+                                </p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Flutter</span>
+                                    <span class="tech-tag">Firebase</span>
+                                    <span class="tech-tag">TensorFlow/PyTorch</span>
+                                    <span class="tech-tag">Flask</span>
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">YOLO</span>
+                                    <span class="tech-tag">CNN</span>
+
+                                </div>
+                                <div class="project-stats">
+                                    <span class="project-date">May 2024</span>
+                                    <span class="project-status status-completed">Completed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 3 - KAU Summer Training Website -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/images/project-03.jpg" alt="KAU Research Automation Website">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Demo">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Code">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <div class="project-category">AI & LLM Automation</div>
+                                <h3 class="project-title">Research Project Closure Automation – KAU</h3>
+                                <p class="project-description">
+                                    Uses LLM summarization to auto-generate research closure reports and structured forms.
+                                </p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">JavaScript</span>
+                                    <span class="tech-tag">HTML/CSS</span>
+                                    <span class="tech-tag">SQL</span>
+                                    <span class="tech-tag">OpenAI API</span>
+                                </div>
+                                <div class="project-stats">
+                                    <span class="project-date">Aug 2023</span>
+                                    <span class="project-status status-completed">Completed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 4 - PC Builder -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/images/project-04.jpg" alt="PC Builder - Gemini AI">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Demo">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Code">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <div class="project-category">AI & ML • Web Development</div>
+                                <h3 class="project-title">PC Builder – Smart Hardware Recommender</h3>
+                                <p class="project-description">
+                                    AI-driven PC recommendation tool that uses Gemini to build custom hardware setups based on user needs.
+                                </p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">HTML/CSS/JS</span>
+                                    <span class="tech-tag">Gemini API</span>
+                                    
+                                </div>
+                                <div class="project-stats">
+                                    <span class="project-date">Aug 2024</span>
+                                    <span class="project-status status-completed">Completed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 5 - Raqeeb – Accident Detection (Streamlit + YOLO) -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/images/project-05.jpg" alt="Raqeeb - Accident Detection">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Demo">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Code">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <div class="project-category">AI & ML · Computer Vision</div>
+                                <h3 class="project-title">Raqeeb – Accident Detection & Reporting – Tuwaiq</h3>
+                                <p class="project-description">
+                                    Real-time accident detection system built with YOLO and Streamlit that analyzes CCTV feeds,
+                                    flags potential incidents, and generates structured reports made by LLM that can be sent to relevant authorities.
+                                </p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">YOLO</span>
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">Streamlit</span>
+                                    <span class="tech-tag">OpenCV</span>
+                                    <span class="tech-tag">LLM APIs</span>
+                                </div>
+                                <div class="project-stats">
+                                    <span class="project-date">Sep 2024</span>
+                                    <span class="project-status status-completed">Completed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 6 -REACH Mobile App -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/images/project-06.jpg" alt="REACH App">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Demo">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Code">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <div class="project-category">Mobile Development</div>
+                                <h3 class="project-title">REACH – Survey Platform App</h3>
+                                <p class="project-description">
+                                    A dual-role survey application connecting researchers and participants through one unified platform.
+                                </p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Flutter</span>
+                                    <span class="tech-tag">Firebase</span>
+                                    
+                                </div>
+                                <div class="project-stats">
+                                    <span class="project-date">2025</span>
+                                    <span class="project-status status-ongoing">Ongoing</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Project 7 -Salary Dashboard -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/images/project-06.jpg" alt="Attendance & Payroll Dashboard">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Demo">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Code">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <div class="project-category">Web Development • Data Analytics</div>
+                                <h3 class="project-title">Attendance & Payroll Analytics Dashboard</h3>
+                                <p class="project-description">
+                                    A Streamlit dashboard to automate attendance processing, overtime, and salary calculation.
+                                </p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">Streamlit</span>
+                                    <span class="tech-tag">Pandas</span>
+                                    <span class="tech-tag">Excel</span>
+                                    
+                                </div>
+                                <div class="project-stats">
+                                    <span class="project-date">Oct 2025</span>
+                                    <span class="project-status status-completed">Completed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Project 8 -HydroPredict AI -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/images/project-06.jpg" alt="HydroPredict AI">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Demo">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Code">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <div class="project-category">AI & ML · Predictive Maintenance</div>
+                                <h3 class="project-title">HydroPredict AI – Green Hydrogen Electrolyzer</h3>
+                                <p class="project-description">
+                                    Predictive model for forecasting failures in green hydrogen equipment using historical sensor data.
+                                </p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">Scikit-learn</span>
+                                    <span class="tech-tag">Streamlit</span>
+                                    <span class="tech-tag">>ML Models</span>
+                                    
+                                </div>
+                                <div class="project-stats">
+                                    <span class="project-date">Oct 2025</span>
+                                    <span class="project-status status-completed">Completed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Project 9 -Khutta Tourism Concept -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/images/project-06.jpg" alt="Khutta App">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Demo">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Code">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <div class="project-category">AI & ML (Concept)</div>
+                                <h3 class="project-title">Khutta – AI Tourism Planner</h3>
+                                <p class="project-description">
+                                    Concept app for smart tourism recommendations using natural-language queries.
+                                </p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Wireframes</span>
+                                    <span class="tech-tag">Concept Design</span>
+                                    
+                                    
+                                    
+                                </div>
+                                <div class="project-stats">
+                                    <span class="project-date">Apr 2025</span>
+                                    <span class="project-status status-prototype">Prototype</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Project 10 -Airbnb Analysis -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/images/project-06.jpg" alt="Airbnb Analysis">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Demo">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Code">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <div class="project-category">Data Science</div>
+                                <h3 class="project-title">Airbnb Market Insights Analysis</h3>
+                                <p class="project-description">
+                                    Full EDA analyzing price factors, ratings, booking behavior, and geographic distribution.
+                                </p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Pandas</span>
+                                    <span class="tech-tag">NumPy</span>
+                                    <span class="tech-tag">Seaborn</span>
+                                    
+                                    
+                                </div>
+                                <div class="project-stats">
+                                    <span class="project-date">Sep 2024</span>
+                                    <span class="project-status status-completed">Completed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Project 11 -Masari Prototype -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/images/project-06.jpg" alt="Masari Website Prototype">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Demo">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Code">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <div class="project-category">Web Prototype</div>
+                                <h3 class="project-title">Masari – Student Pathway Advisor</h3>
+                                <p class="project-description">
+                                    Early-stage prototype for a guidance website helping students choose university majors.
+                                </p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Wireframes</span>
+                                    <span class="tech-tag">Concept Design</span>                                    
+                                    
+                                </div>
+                                <div class="project-stats">
+                                    <span class="project-date">Jul 2024</span>
+                                    <span class="project-status status-prototype">Prototype</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Project 12 -Tata Data Analysis -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/images/project-06.jpg" alt="Tata Data Analysis">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Demo">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Code">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <div class="project-category">Data Science</div>
+                                <h3 class="project-title">Exploratory Data Analysis</h3>
+                                <p class="project-description">
+                                    EDA projects exploring pricing, customer behavior, and KPIs on real-world datasets.
+                                </p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">Pandas</span>     
+                                    <span class="tech-tag">Matplotlib</span>
+                                    <span class="tech-tag">Seaborn</span>                        
+                                    
+                                </div>
+                                <div class="project-stats">
+                                    <span class="project-date">Sep 2024</span>
+                                    <span class="project-status status-completed">Completed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- AI & ML Projects -->
+            <div class="tab-content" id="ai-ml">
+                <div class="row">
+                    <!-- Project 1 - Athar  -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/images/project-01.jpg" alt="Athar AI App">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Demo">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Code">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <div class="project-category">AI & ML • Mobile</div>
+                                <h3 class="project-title">Athar – AI Tourism App</h3>
+                                <p class="project-description">
+                                    AI-powered solution to enhance the Saudi tourism experience by analyzing visitor feedback,
+                                    identifying tourism pain points, and suggesting data-driven improvements.
+                                </p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Flutter</span>
+                                    <span class="tech-tag">Firebase</span>
+                                    <span class="tech-tag">YOLO - Object Detection</span>
+                                    <span class="tech-tag">LLM APIs</span>
+                                </div>
+                                <div class="project-stats">
+                                    <span class="project-date">Jul 2024</span>
+                                    <span class="project-status status-completed">Hackathon Winner</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 2 - SmartCloset -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/images/project-02.jpg" alt="SmartCloset - AI Wardrobe Recommender">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Demo">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Code">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <div class="project-category">AI & ML • Mobile</div>
+                                <h3 class="project-title">SmartCloset – AI Wardrobe Recommender</h3>
+                                <p class="project-description">
+                                    Computer vision–based system that analyzes clothing items and recommends outfits based on extracted features.
+                                </p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Flutter</span>
+                                    <span class="tech-tag">Firebase</span>
+                                    <span class="tech-tag">TensorFlow/PyTorch</span>
+                                    <span class="tech-tag">Flask</span>
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">YOLO</span>
+                                    <span class="tech-tag">CNN</span>
+
+                                </div>
+                                <div class="project-stats">
+                                    <span class="project-date">May 2024</span>
+                                    <span class="project-status status-completed">Completed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 3 - KAU Summer Training Website -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/images/project-03.jpg" alt="KAU Research Automation Website">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Demo">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Code">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <div class="project-category">AI & LLM Automation</div>
+                                <h3 class="project-title">Research Project Closure Automation – KAU</h3>
+                                <p class="project-description">
+                                    Uses LLM summarization to auto-generate research closure reports and structured forms.
+                                </p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">JavaScript</span>
+                                    <span class="tech-tag">HTML/CSS</span>
+                                    <span class="tech-tag">SQL</span>
+                                    <span class="tech-tag">OpenAI API</span>
+                                </div>
+                                <div class="project-stats">
+                                    <span class="project-date">Aug 2023</span>
+                                    <span class="project-status status-completed">Completed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 4 - PC Builder -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/images/project-04.jpg" alt="PC Builder - Gemini AI">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Demo">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Code">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <div class="project-category">AI & ML • Web Development</div>
+                                <h3 class="project-title">PC Builder – Smart Hardware Recommender</h3>
+                                <p class="project-description">
+                                    AI-driven PC recommendation tool that uses Gemini to build custom hardware setups based on user needs.
+                                </p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">HTML/CSS/JS</span>
+                                    <span class="tech-tag">Gemini API</span>
+                                    
+                                </div>
+                                <div class="project-stats">
+                                    <span class="project-date">Aug 2024</span>
+                                    <span class="project-status status-completed">Completed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 5 - Raqeeb – Accident Detection (Streamlit + YOLO) -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/images/project-05.jpg" alt="Raqeeb - Accident Detection">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Demo">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Code">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <div class="project-category">AI & ML · Computer Vision</div>
+                                <h3 class="project-title">Raqeeb – Accident Detection & Reporting – Tuwaiq</h3>
+                                <p class="project-description">
+                                    Real-time accident detection system built with YOLO and Streamlit that analyzes CCTV feeds,
+                                    flags potential incidents, and generates structured reports made by LLM that can be sent to relevant authorities.
+                                </p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">YOLO</span>
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">Streamlit</span>
+                                    <span class="tech-tag">OpenCV</span>
+                                    <span class="tech-tag">LLM APIs</span>
+                                </div>
+                                <div class="project-stats">
+                                    <span class="project-date">Sep 2024</span>
+                                    <span class="project-status status-completed">Completed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Project 8 -HydroPredict AI -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/images/project-06.jpg" alt="HydroPredict AI">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Demo">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Code">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <div class="project-category">AI & ML · Predictive Maintenance</div>
+                                <h3 class="project-title">HydroPredict AI – Green Hydrogen Electrolyzer</h3>
+                                <p class="project-description">
+                                    Predictive model for forecasting failures in green hydrogen equipment using historical sensor data.
+                                </p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">Scikit-learn</span>
+                                    <span class="tech-tag">Streamlit</span>
+                                    <span class="tech-tag">>ML Models</span>
+                                    
+                                </div>
+                                <div class="project-stats">
+                                    <span class="project-date">Oct 2025</span>
+                                    <span class="project-status status-completed">Completed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Project 9 -Khutta Tourism Concept -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/images/project-06.jpg" alt="Khutta App">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Demo">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Code">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <div class="project-category">AI & ML (Concept)</div>
+                                <h3 class="project-title">Khutta – AI Tourism Planner</h3>
+                                <p class="project-description">
+                                    Concept app for smart tourism recommendations using natural-language queries.
+                                </p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Wireframes</span>
+                                    <span class="tech-tag">Concept Design</span>
+                                    
+                                    
+                                    
+                                </div>
+                                <div class="project-stats">
+                                    <span class="project-date">Apr 2025</span>
+                                    <span class="project-status status-prototype">Prototype</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Web Development Projects -->
+            <div class="tab-content" id="web-dev">
+                <div class="row">
+                <!-- Project 3 - KAU Summer Training Website -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/images/project-03.jpg" alt="KAU Research Automation Website">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Demo">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Code">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <div class="project-category">AI & LLM Automation</div>
+                                <h3 class="project-title">Research Project Closure Automation – KAU</h3>
+                                <p class="project-description">
+                                    Uses LLM summarization to auto-generate research closure reports and structured forms.
+                                </p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">JavaScript</span>
+                                    <span class="tech-tag">HTML/CSS</span>
+                                    <span class="tech-tag">SQL</span>
+                                    <span class="tech-tag">OpenAI API</span>
+                                </div>
+                                <div class="project-stats">
+                                    <span class="project-date">Aug 2023</span>
+                                    <span class="project-status status-completed">Completed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 4 - PC Builder -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/images/project-04.jpg" alt="PC Builder - Gemini AI">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Demo">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Code">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <div class="project-category">AI & ML • Web Development</div>
+                                <h3 class="project-title">PC Builder – Smart Hardware Recommender</h3>
+                                <p class="project-description">
+                                    AI-driven PC recommendation tool that uses Gemini to build custom hardware setups based on user needs.
+                                </p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">HTML/CSS/JS</span>
+                                    <span class="tech-tag">Gemini API</span>
+                                    
+                                </div>
+                                <div class="project-stats">
+                                    <span class="project-date">Aug 2024</span>
+                                    <span class="project-status status-completed">Completed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 5 - Raqeeb – Accident Detection (Streamlit + YOLO) -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/images/project-05.jpg" alt="Raqeeb - Accident Detection">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Demo">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Code">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <div class="project-category">AI & ML · Computer Vision</div>
+                                <h3 class="project-title">Raqeeb – Accident Detection & Reporting – Tuwaiq</h3>
+                                <p class="project-description">
+                                    Real-time accident detection system built with YOLO and Streamlit that analyzes CCTV feeds,
+                                    flags potential incidents, and generates structured reports made by LLM that can be sent to relevant authorities.
+                                </p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">YOLO</span>
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">Streamlit</span>
+                                    <span class="tech-tag">OpenCV</span>
+                                    <span class="tech-tag">LLM APIs</span>
+                                </div>
+                                <div class="project-stats">
+                                    <span class="project-date">Sep 2024</span>
+                                    <span class="project-status status-completed">Completed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Project 7 -Salary Dashboard -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/images/project-06.jpg" alt="Attendance & Payroll Dashboard">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Demo">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Code">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <div class="project-category">Web Development • Data Analytics</div>
+                                <h3 class="project-title">Attendance & Payroll Analytics Dashboard</h3>
+                                <p class="project-description">
+                                    A Streamlit dashboard to automate attendance processing, overtime, and salary calculation.
+                                </p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">Streamlit</span>
+                                    <span class="tech-tag">Pandas</span>
+                                    <span class="tech-tag">Excel</span>
+                                    
+                                </div>
+                                <div class="project-stats">
+                                    <span class="project-date">Oct 2025</span>
+                                    <span class="project-status status-completed">Completed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Project 8 -HydroPredict AI -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/images/project-06.jpg" alt="HydroPredict AI">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Demo">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Code">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <div class="project-category">AI & ML · Predictive Maintenance</div>
+                                <h3 class="project-title">HydroPredict AI – Green Hydrogen Electrolyzer</h3>
+                                <p class="project-description">
+                                    Predictive model for forecasting failures in green hydrogen equipment using historical sensor data.
+                                </p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">Scikit-learn</span>
+                                    <span class="tech-tag">Streamlit</span>
+                                    <span class="tech-tag">>ML Models</span>
+                                    
+                                </div>
+                                <div class="project-stats">
+                                    <span class="project-date">Oct 2025</span>
+                                    <span class="project-status status-completed">Completed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Data Science Projects -->
+            <div class="tab-content" id="data-science">
+                <div class="row">
+                    <!-- Project 7 -Salary Dashboard -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/images/project-06.jpg" alt="Attendance & Payroll Dashboard">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Demo">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Code">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <div class="project-category">Web Development • Data Analytics</div>
+                                <h3 class="project-title">Attendance & Payroll Analytics Dashboard</h3>
+                                <p class="project-description">
+                                    A Streamlit dashboard to automate attendance processing, overtime, and salary calculation.
+                                </p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">Streamlit</span>
+                                    <span class="tech-tag">Pandas</span>
+                                    <span class="tech-tag">Excel</span>
+                                    
+                                </div>
+                                <div class="project-stats">
+                                    <span class="project-date">Oct 2025</span>
+                                    <span class="project-status status-completed">Completed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Project 8 -HydroPredict AI -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/images/project-06.jpg" alt="HydroPredict AI">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Demo">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Code">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <div class="project-category">AI & ML · Predictive Maintenance</div>
+                                <h3 class="project-title">HydroPredict AI – Green Hydrogen Electrolyzer</h3>
+                                <p class="project-description">
+                                    Predictive model for forecasting failures in green hydrogen equipment using historical sensor data.
+                                </p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">Scikit-learn</span>
+                                    <span class="tech-tag">Streamlit</span>
+                                    <span class="tech-tag">>ML Models</span>
+                                    
+                                </div>
+                                <div class="project-stats">
+                                    <span class="project-date">Oct 2025</span>
+                                    <span class="project-status status-completed">Completed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 10 -Airbnb Analysis -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/images/project-06.jpg" alt="Airbnb Analysis">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Demo">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Code">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <div class="project-category">Data Science</div>
+                                <h3 class="project-title">Airbnb Market Insights Analysis</h3>
+                                <p class="project-description">
+                                    Full EDA analyzing price factors, ratings, booking behavior, and geographic distribution.
+                                </p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Pandas</span>
+                                    <span class="tech-tag">NumPy</span>
+                                    <span class="tech-tag">Seaborn</span>
+                                    
+                                    
+                                </div>
+                                <div class="project-stats">
+                                    <span class="project-date">Sep 2024</span>
+                                    <span class="project-status status-completed">Completed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 12 -Tata Data Analysis -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/images/project-06.jpg" alt="Tata Data Analysis">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Demo">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Code">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <div class="project-category">Data Science</div>
+                                <h3 class="project-title">Exploratory Data Analysis</h3>
+                                <p class="project-description">
+                                    EDA projects exploring pricing, customer behavior, and KPIs on real-world datasets.
+                                </p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">Pandas</span>     
+                                    <span class="tech-tag">Matplotlib</span>
+                                    <span class="tech-tag">Seaborn</span>                        
+                                    
+                                </div>
+                                <div class="project-stats">
+                                    <span class="project-date">Sep 2024</span>
+                                    <span class="project-status status-completed">Completed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mobile Projects -->
+            <div class="tab-content" id="mobile">
+                <div class="row">
+                    <!-- Project 1 - Athar  -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/images/project-01.jpg" alt="Athar AI App">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Demo">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Code">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <div class="project-category">AI & ML • Mobile</div>
+                                <h3 class="project-title">Athar – AI Tourism App</h3>
+                                <p class="project-description">
+                                    AI-powered solution to enhance the Saudi tourism experience by analyzing visitor feedback,
+                                    identifying tourism pain points, and suggesting data-driven improvements.
+                                </p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Flutter</span>
+                                    <span class="tech-tag">Firebase</span>
+                                    <span class="tech-tag">YOLO - Object Detection</span>
+                                    <span class="tech-tag">LLM APIs</span>
+                                </div>
+                                <div class="project-stats">
+                                    <span class="project-date">Jul 2024</span>
+                                    <span class="project-status status-completed">Hackathon Winner</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 2 - SmartCloset -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/images/project-02.jpg" alt="SmartCloset - AI Wardrobe Recommender">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Demo">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Code">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <div class="project-category">AI & ML • Mobile</div>
+                                <h3 class="project-title">SmartCloset – AI Wardrobe Recommender</h3>
+                                <p class="project-description">
+                                    Computer vision–based system that analyzes clothing items and recommends outfits based on extracted features.
+                                </p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Flutter</span>
+                                    <span class="tech-tag">Firebase</span>
+                                    <span class="tech-tag">TensorFlow/PyTorch</span>
+                                    <span class="tech-tag">Flask</span>
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">YOLO</span>
+                                    <span class="tech-tag">CNN</span>
+
+                                </div>
+                                <div class="project-stats">
+                                    <span class="project-date">May 2024</span>
+                                    <span class="project-status status-completed">Completed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 6 -REACH Mobile App -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/images/project-06.jpg" alt="REACH App">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Demo">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Code">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <div class="project-category">Mobile Development</div>
+                                <h3 class="project-title">REACH – Survey Platform App</h3>
+                                <p class="project-description">
+                                    A dual-role survey application connecting researchers and participants through one unified platform.
+                                </p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Flutter</span>
+                                    <span class="tech-tag">Firebase</span>
+                                    
+                                </div>
+                                <div class="project-stats">
+                                    <span class="project-date">2025</span>
+                                    <span class="project-status status-ongoing">Ongoing</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <!-- Project 9 -Khutta Tourism Concept -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/images/project-06.jpg" alt="Khutta App">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="View Demo">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="project-link" title="View Code">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <div class="project-category">AI & ML (Concept)</div>
+                                <h3 class="project-title">Khutta – AI Tourism Planner</h3>
+                                <p class="project-description">
+                                    Concept app for smart tourism recommendations using natural-language queries.
+                                </p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Wireframes</span>
+                                    <span class="tech-tag">Concept Design</span>
+                                    
+                                    
+                                    
+                                </div>
+                                <div class="project-stats">
+                                    <span class="project-date">Apr 2025</span>
+                                    <span class="project-status status-prototype">Prototype</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background: var(--bg-secondary); padding: 40px 0; text-align: center; border-top: 1px solid var(--color-border);">
+        <div class="container">
+            <p style="color: var(--color-text-secondary); margin: 0; font-size: 14px;">
+                Copyright © 2024 Arwa Zenni. All rights reserved. 
+                <!-- Design: <a href="https://templatemo.com" target="_blank" style="color: var(--color-primary); text-decoration: none;">TemplateMo</a> -->
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/shared-scripts.js"></script>
+    
+    <script>
+        // Project tabs functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.project-tab');
+            const contents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const targetTab = this.getAttribute('data-tab');
+                    
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    contents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    // Show corresponding content
+                    document.getElementById(targetTab).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

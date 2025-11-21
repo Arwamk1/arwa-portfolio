@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experience - Arwa Zenni | AI Developer</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/templatemo-liberty-market.css">
+    <link rel="stylesheet" href="assets/css/shared-styles.css">
+    
+    <style>
+        /* Page-specific styles */
+        .experience-section {
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-card) 100%);
+        }
+        
+        .timeline {
+            position: relative;
+            padding: 0;
+            list-style: none;
+        }
+        
+        .timeline:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 2px;
+            margin-left: -1px;
+            background: linear-gradient(to bottom, var(--color-primary), var(--color-secondary));
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 50px;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: 50%;
+            padding-left: 40px;
+            text-align: left;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-right: 50%;
+            padding-right: 40px;
+            text-align: right;
+        }
+        
+        .timeline-marker {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin-left: -10px;
+            background: var(--color-primary);
+            border: 4px solid var(--bg-card);
+            border-radius: 50%;
+            z-index: 2;
+            box-shadow: 0 0 0 4px var(--color-primary-alpha);
+        }
+        
+        .timeline-content {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--color-border-light);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: var(--backdrop-blur);
+        }
+        
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--color-border-hover);
+        }
+        
+        .timeline-date {
+            display: inline-block;
+            background: var(--gradient-primary);
+            color: var(--color-text-inverse);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+        
+        .timeline-title {
+            color: var(--color-text);
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        
+        .timeline-company {
+            color: var(--color-primary);
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .timeline-description {
+            color: var(--color-text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .timeline-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-skills {
+            justify-content: flex-end;
+        }
+        
+        .skill-tag {
+            background: var(--bg-secondary);
+            color: var(--color-text);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            border: 1px solid var(--color-border-light);
+        }
+        
+
+        
+        .experience-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .stat-card {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--color-border-light);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: var(--backdrop-blur);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--color-border-hover);
+        }
+        
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--color-text-inverse);
+            font-size: 24px;
+        }
+        
+        .stat-number {
+            color: var(--color-text);
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            line-height: 1;
+        }
+        
+        .stat-label {
+            color: var(--color-text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        @media (max-width: 768px) {
+            .timeline:before {
+                left: 20px;
+            }
+            
+            .timeline-marker {
+                left: 20px;
+                margin-left: -10px;
+            }
+            
+            .timeline-item:nth-child(even) .timeline-content,
+            .timeline-item:nth-child(odd) .timeline-content {
+                margin-left: 50px;
+                margin-right: 0;
+                padding-left: 20px;
+                padding-right: 20px;
+                text-align: left;
+            }
+            
+            .timeline-item:nth-child(odd) .timeline-skills {
+                justify-content: flex-start;
+            }
+            
+
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="modern-header">
+        <nav class="modern-nav">
+            <a href="index.html" class="nav-brand">
+                <div class="brand-icon">AZ</div>
+                <span>Arwa Zenni</span>
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="skills.html" class="nav-link">Skills</a></li>
+                <li><a href="projects.html" class="nav-link">Projects</a></li>
+                <li><a href="experience.html" class="nav-link active">Experience</a></li>
+                <li><a href="education.html" class="nav-link">Education</a></li>
+                <li><a href="achievements.html" class="nav-link">Achievements</a></li>
+                <!-- <li><a href="contact.html" class="nav-link">Contact</a></li> -->
+            </ul>
+            
+            <button class="mobile-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+        
+        <div class="mobile-nav">
+            <ul class="mobile-menu">
+                <li><a href="index.html" class="mobile-link">Home</a></li>
+                <li><a href="about.html" class="mobile-link">About</a></li>
+                <li><a href="skills.html" class="mobile-link">Skills</a></li>
+                <li><a href="projects.html" class="mobile-link">Projects</a></li>
+                <li><a href="experience.html" class="mobile-link active">Experience</a></li>
+                <li><a href="education.html" class="mobile-link">Education</a></li>
+                <li><a href="achievements.html" class="mobile-link">Achievements</a></li>
+                <!-- <li><a href="contact.html" class="mobile-link">Contact</a></li> -->
+            </ul>
+        </div>
+    </header>
+
+    <!-- Experience Section -->
+    <section class="experience-section" id="experience">
+        <div class="container">
+            <div class="section-heading">
+                <div class="line-dec"></div>
+                <h2>Work <em>Experience</em></h2>
+            </div>
+            
+            <!-- Experience Stats -->
+            <!-- <div class="experience-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="stat-number counter" data-target="5">0</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <div class="stat-number counter" data-target="50">0</div>
+                    <div class="stat-label">Projects Completed</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-number counter" data-target="25">0</div>
+                    <div class="stat-label">Happy Clients</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <div class="stat-number counter" data-target="15">0</div>
+                    <div class="stat-label">Awards Won</div>
+                </div>
+            </div> -->
+            
+            <!-- Timeline -->
+            <ul class="timeline">
+                <!-- Experience 1 - Summer Training - KAU -->
+                <li class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Jun 2023 - Aug 2023</span>
+                        <h3 class="timeline-title">AI Developer – Summer Training</h3>
+                        <div class="timeline-company">Deanship of Scientific Research – King Abdulaziz University</div>
+                        <p class="timeline-description">
+                            Built an AI-powered automation website to support research project closure.  
+                            Automated manual workflows using OpenAI for summarization and data extraction,  
+                            improving processing accuracy and reducing workload for staff.
+                        </p>
+                        <div class="timeline-skills">
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">HTML/CSS</span>
+                            <span class="skill-tag">SQL</span>
+                            <span class="skill-tag">Bootstrap</span>
+                            <span class="skill-tag">OpenAI API</span>
+                        </div>
+
+                    </div>
+                </li>
+                
+                <!-- Experience 2 - Tuwaiq AI Models Bootcamp -->
+                <li class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Sep 2024 - Oct 2024</span>
+                        <h3 class="timeline-title">AI Models Building Trainee Bootcamp</h3>
+                        <div class="timeline-company">Tuwaiq Academy</div>
+                        <p class="timeline-description">
+                            Completed intensive training in deep learning model design,  
+                            image processing, model deployment, and MLOps fundamentals.  
+                            Built computer vision projects including accident detection.
+                        </p>
+                        <div class="timeline-skills">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">Scikit-learn</span>
+                            <span class="skill-tag">PyTorch</span>
+                            <span class="skill-tag">Pandas</span>
+                            <span class="skill-tag">YOLO</span>
+                            <span class="skill-tag">Streamlit</span>
+                            
+                        </div>
+
+                    </div>
+                </li>
+                
+                <!-- Experience 3 - InPower Bootcamp -->
+                <li class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Jan 2025 - Oct 2025</span>
+                        <h3 class="timeline-title">AI Mobile App Developer (Bootcamp)</h3>
+                        <div class="timeline-company">InPower – OperationSeer</div>
+                        <p class="timeline-description">
+                            Developing AI-powered mobile applications using Flutter.  
+                            Integrating computer vision and NLP models, improving UI structure,  
+                            and building a unified survey system through the Reach application.
+                        </p>
+                        <div class="timeline-skills">
+                            <span class="skill-tag">Flutter</span>
+                            <span class="skill-tag">Dart</span>
+                            <span class="skill-tag">Firebase</span>
+                            <span class="skill-tag">AI Integration</span>
+                            
+                        </div>
+
+                    </div>
+                </li>
+                
+                <!-- Experience 4 - Forage Simulation -->
+                <li class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Oct 2025</span>
+                        <h3 class="timeline-title">GenAI Data Analytics Virtual Simulation</h3>
+                        <div class="timeline-company">Forage</div>
+                        <p class="timeline-description">
+                            Completed a hands-on job simulation analyzing risk profiling,  
+                            predicting delinquency using AI, and building data-driven reports  
+                            for collections strategy using generative AI and analytics tools.
+                        </p>
+                        <div class="timeline-skills">
+                            <span class="skill-tag">GenAI</span>
+                            <span class="skill-tag">EDA</span>
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">Data Storytelling</span>
+                           
+                        </div>
+
+                    </div>
+                </li>
+                
+                <!-- Experience 5
+                <li class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">2018 - 2019</span>
+                        <h3 class="timeline-title">Junior Software Developer</h3>
+                        <div class="timeline-company">StartupTech</div>
+                        <p class="timeline-description">
+                            Started my professional journey as a junior developer, learning industry best practices and 
+                            contributing to various software development projects.
+                        </p>
+                        <div class="timeline-skills">
+                            <span class="skill-tag">Java</span>
+                            <span class="skill-tag">Spring Boot</span>
+                            <span class="skill-tag">MySQL</span>
+                            <span class="skill-tag">Git</span>
+                            <span class="skill-tag">Agile</span>
+                        </div>
+
+                    </div>
+                </li> -->
+            </ul>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background: var(--bg-secondary); padding: 40px 0; text-align: center; border-top: 1px solid var(--color-border);">
+        <div class="container">
+            <p style="color: var(--color-text-secondary); margin: 0; font-size: 14px;">
+                Copyright © 2024 Arwa Zenni. All rights reserved. 
+                <!-- Design: <a href="https://templatemo.com" target="_blank" style="color: var(--color-primary); text-decoration: none;">TemplateMo</a> -->
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/shared-scripts.js"></script>
+    
+    <script>
+        // Counter animation for stats
+        document.addEventListener('DOMContentLoaded', function() {
+            const counters = document.querySelectorAll('.counter');
+            const observerOptions = {
+                threshold: 0.5,
+                rootMargin: '0px 0px -100px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        const target = parseInt(counter.getAttribute('data-target'));
+                        const duration = 2000;
+                        const step = target / (duration / 16);
+                        let current = 0;
+                        
+                        const timer = setInterval(() => {
+                            current += step;
+                            if (current >= target) {
+                                counter.textContent = target;
+                                clearInterval(timer);
+                            } else {
+                                counter.textContent = Math.floor(current);
+                            }
+                        }, 16);
+                        
+                        observer.unobserve(counter);
+                    }
+                });
+            }, observerOptions);
+            
+            counters.forEach(counter => {
+                observer.observe(counter);
+            });
+        });
+    </script>
+</body>
+</html>

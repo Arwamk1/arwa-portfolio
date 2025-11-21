@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Education - Arwa Zenni | AI Developer</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/templatemo-liberty-market.css">
+    <link rel="stylesheet" href="assets/css/shared-styles.css">
+
+    <style>
+        /* Page-specific styles */
+        .education-section {
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-card) 100%);
+        }
+
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .education-card {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--color-border-light);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: var(--backdrop-blur);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .education-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+
+        .education-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--color-border-hover);
+        }
+
+        .education-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .education-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-text-inverse);
+            font-size: 24px;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .education-info h3 {
+            color: var(--color-text);
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            line-height: 1.3;
+        }
+
+        .education-institution {
+            color: var(--color-primary);
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .education-date {
+            color: var(--color-text-muted);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .education-description {
+            color: var(--color-text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .education-details {
+            margin-bottom: 20px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            color: var(--color-text-secondary);
+            font-size: 14px;
+        }
+
+        .detail-item i {
+            color: var(--color-primary);
+            margin-right: 10px;
+            width: 16px;
+        }
+
+        .education-subjects {
+            margin-bottom: 20px;
+        }
+
+        .subjects-title {
+            color: var(--color-text);
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .subjects-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .subject-tag {
+            background: var(--bg-secondary);
+            color: var(--color-text);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            border: 1px solid var(--color-border-light);
+        }
+
+
+
+        .certifications-section {
+            margin-top: 60px;
+        }
+
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .certification-card {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--color-border-light);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: var(--backdrop-blur);
+            text-align: center;
+        }
+
+        .certification-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--color-border-hover);
+        }
+
+        .certification-logo {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--color-text-inverse);
+            font-size: 32px;
+        }
+
+        .certification-title {
+            color: var(--color-text);
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .certification-issuer {
+            color: var(--color-primary);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .certification-date {
+            color: var(--color-text-muted);
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+
+        .certification-badge {
+            display: inline-block;
+            background: var(--gradient-primary);
+            color: var(--color-text-inverse);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 768px) {
+            .education-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .certifications-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .education-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .education-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="modern-header">
+        <nav class="modern-nav">
+            <a href="index.html" class="nav-brand">
+                <div class="brand-icon">AZ</div>
+                <span>Arwa Zenni</span>
+            </a>
+
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="skills.html" class="nav-link">Skills</a></li>
+                <li><a href="projects.html" class="nav-link">Projects</a></li>
+                <li><a href="experience.html" class="nav-link">Experience</a></li>
+                <li><a href="education.html" class="nav-link active">Education</a></li>
+                <li><a href="achievements.html" class="nav-link">Achievements</a></li>
+                <!-- <li><a href="contact.html" class="nav-link">Contact</a></li> -->
+            </ul>
+
+            <button class="mobile-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+
+        <div class="mobile-nav">
+            <ul class="mobile-menu">
+                <li><a href="index.html" class="mobile-link">Home</a></li>
+                <li><a href="about.html" class="mobile-link">About</a></li>
+                <li><a href="skills.html" class="mobile-link">Skills</a></li>
+                <li><a href="projects.html" class="mobile-link">Projects</a></li>
+                <li><a href="experience.html" class="mobile-link">Experience</a></li>
+                <li><a href="education.html" class="mobile-link active">Education</a></li>
+                <li><a href="achievements.html" class="mobile-link">Achievements</a></li>
+                <!-- <li><a href="contact.html" class="mobile-link">Contact</a></li> -->
+            </ul>
+        </div>
+    </header>
+
+    <!-- Education Section -->
+    <section class="education-section" id="education">
+        <div class="container">
+            <div class="section-heading">
+                <div class="line-dec"></div>
+                <h2>My <em>Education</em></h2>
+            </div>
+
+            <!-- Education Cards -->
+            <div class="education-grid">
+                <!-- Master's Degree -->
+                <!-- <div class="education-card">
+                    <div class="education-header">
+                        <div class="education-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="education-info">
+                            <h3>Master of Science in Artificial Intelligence</h3>
+                            <div class="education-institution">Stanford University</div>
+                            <div class="education-date">2020 - 2022</div>
+                        </div>
+                    </div>
+                    
+                    <p class="education-description">
+                        Advanced studies in artificial intelligence, machine learning, and deep learning with focus on 
+                        natural language processing and computer vision applications.
+                    </p>
+                    
+                    <div class="education-details">
+                        <div class="detail-item">
+                            <i class="fas fa-medal"></i>
+                            <span>GPA: 3.9/4.0 - Magna Cum Laude</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-trophy"></i>
+                            <span>Dean's List for 4 consecutive semesters</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-book"></i>
+                            <span>Thesis: "Advanced Neural Networks for Real-time Object Detection"</span>
+                        </div>
+                    </div>
+                    
+                    <div class="education-subjects">
+                        <div class="subjects-title">Key Subjects:</div>
+                        <div class="subjects-list">
+                            <span class="subject-tag">Machine Learning</span>
+                            <span class="subject-tag">Deep Learning</span>
+                            <span class="subject-tag">Computer Vision</span>
+                            <span class="subject-tag">NLP</span>
+                            <span class="subject-tag">Neural Networks</span>
+                            <span class="subject-tag">Data Mining</span>
+                        </div>
+                    </div>
+                    
+
+                </div> -->
+
+                <!-- Bachelor's Degree -->
+                <div class="education-card">
+                    <div class="education-header">
+                        <div class="education-icon">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <div class="education-info">
+                            <h3>Bachelor of Science in Computer Science – Artificial Intelligence Track</h3>
+                            <div class="education-institution">King Abdulaziz University – Jeddah, Saudi Arabia</div>
+                            <div class="education-date">2019 – 2024</div>
+                        </div>
+                    </div>
+
+                    <p class="education-description">
+                        Graduated with a strong academic background in Computer Science specializing in Artificial
+                        Intelligence. Gained hands-on experience in Machine Learning, Deep Learning, NLP, Computer
+                        Vision,
+                        Data Analysis, and intelligent system development through multiple projects, capstone work, and
+                        hackathon participation.
+                    </p>
+
+                    <div class="education-details">
+                        <div class="detail-item">
+                            <i class="fas fa-medal"></i>
+                            <span>GPA: 4.66 / 5 – Excellent with Honors</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-trophy"></i>
+                            <span>Graduation project was honored at the 15th Scientific Forum at King
+                                Abdulaziz University</span>
+                        </div>
+
+                        <div class="detail-item">
+                            <i class="fas fa-project-diagram"></i>
+                            <span>Graduation Project: "SmartCloset" – AI-powered outfit recommendation system"</span>
+                        </div>
+                    </div>
+
+                    <div class="education-subjects">
+                        <div class="subjects-title">Key Subjects:</div>
+                        <div class="subjects-list">
+                            <span class="subject-tag">Machine Learning</span>
+                            <span class="subject-tag">Deep Learning</span>
+                            <span class="subject-tag">Computer Vision</span>
+                            <span class="subject-tag">NLP</span>
+                            <span class="subject-tag">Neural Networks</span>
+                            <span class="subject-tag">Algorithms</span>
+                            <span class="subject-tag">Data Mining</span>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- Certifications Section -->
+                <!-- <div class="certifications-section"> -->
+                <!-- <div class="section-heading">
+                    <div class="line-dec"></div>
+                    <h2>Professional <em>Certifications</em></h2>
+                </div> -->
+
+                <!-- <div class="certifications-grid"> -->
+                    <!-- AWS Certification -->
+                    <!-- <div class="certification-card">
+                        <div class="certification-logo">
+                            <i class="fab fa-aws"></i>
+                        </div>
+                        <h3 class="certification-title">AWS Certified Solutions Architect</h3>
+                        <div class="certification-issuer">Amazon Web Services</div>
+                        <div class="certification-date">Issued: March 2023</div>
+                        <span class="certification-badge">Professional</span>
+                    </div> -->
+
+                    <!-- Google Cloud Certification -->
+                    <!-- <div class="certification-card">
+                        <div class="certification-logo">
+                            <i class="fab fa-google"></i>
+                        </div>
+                        <h3 class="certification-title">Google Cloud Professional ML Engineer</h3>
+                        <div class="certification-issuer">Google Cloud</div>
+                        <div class="certification-date">Issued: January 2023</div>
+                        <span class="certification-badge">Professional</span>
+                    </div> -->
+
+                    <!-- TensorFlow Certification -->
+                    <!-- <div class="certification-card">
+                        <div class="certification-logo">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3 class="certification-title">TensorFlow Developer Certificate</h3>
+                        <div class="certification-issuer">TensorFlow</div>
+                        <div class="certification-date">Issued: November 2022</div>
+                        <span class="certification-badge">Specialist</span>
+                    </div> -->
+
+                    <!-- Microsoft Azure Certification -->
+                    <!-- <div class="certification-card">
+                        <div class="certification-logo">
+                            <i class="fab fa-microsoft"></i>
+                        </div>
+                        <h3 class="certification-title">Azure AI Engineer Associate</h3>
+                        <div class="certification-issuer">Microsoft</div>
+                        <div class="certification-date">Issued: September 2022</div>
+                        <span class="certification-badge">Associate</span>
+                    </div> -->
+
+                    <!-- Coursera Certification -->
+                    <!-- <div class="certification-card">
+                        <div class="certification-logo">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3 class="certification-title">Deep Learning Specialization</h3>
+                        <div class="certification-issuer">Coursera - Andrew Ng</div>
+                        <div class="certification-date">Issued: July 2022</div>
+                        <span class="certification-badge">Specialization</span>
+                    </div> -->
+
+                    <!-- Kubernetes Certification -->
+                    <!-- <div class="certification-card">
+                        <div class="certification-logo">
+                            <i class="fas fa-dharmachakra"></i>
+                        </div>
+                        <h3 class="certification-title">Certified Kubernetes Administrator</h3>
+                        <div class="certification-issuer">Cloud Native Computing Foundation</div>
+                        <div class="certification-date">Issued: May 2022</div>
+                        <span class="certification-badge">Professional</span>
+                    </div> -->
+                <!-- </div> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer
+        style="background: var(--bg-secondary); padding: 40px 0; text-align: center; border-top: 1px solid var(--color-border);">
+        <div class="container">
+            <p style="color: var(--color-text-secondary); margin: 0; font-size: 14px;">
+                Copyright © 2024 Arwa Zenni. All rights reserved.
+                <!-- Design: <a href="https://templatemo.com" target="_blank" style="color: var(--color-primary); text-decoration: none;">TemplateMo</a> -->
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/shared-scripts.js"></script>
+</body>
+
+</html>
